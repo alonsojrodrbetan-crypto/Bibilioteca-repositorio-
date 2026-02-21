@@ -7,29 +7,26 @@ public class Consola {
 	
 	public int mostrarMenuPrincipal () {
 
-		
-		
 		Scanner sc = new Scanner (System.in);
 		int opcion = 0;
 		
 		do {
-		
 			
-		System.out.println("******************************");
-		System.out.println("****** MENÚ PRINCIPAL ********");
-		System.out.println("******************************");
-		System.out.println("**** 1. Prestar un libro *****");
-		System.out.println("**** 2. Devolver un libro ****");
-		System.out.println("**** 3. Reservar un libro ****");
-		System.out.println("**** 4. Buscar un libro ******");
-		System.out.println("5. Encontrar un libro prestado");
-		System.out.println("** 6. Resumen de Biblioteca **");
-		System.out.println("********   7. SALIR   ********");
-		System.out.println("******************************");
+			System.out.println("******************************");
+			System.out.println("****** MENÚ PRINCIPAL ********");
+			System.out.println("******************************");
+			System.out.println("**** 1. Prestar un libro *****");
+			System.out.println("**** 2. Devolver un libro ****");
+			System.out.println("**** 3. Reservar un libro ****");
+			System.out.println("**** 4. Buscar un libro ******");
+			System.out.println("5. Encontrar un libro prestado");
+			System.out.println("** 6. Resumen de Biblioteca **");
+			System.out.println("********   7. SALIR   ********");
+			System.out.println("******************************");
+			
+			System.out.println(" Seleccione la opción deseada: ");
+			opcion = sc.nextInt ();
 		
-		System.out.println(" Seleccione la opción deseada: ");
-		opcion = sc.nextInt ();
-	
 		
 		} while (opcion<1||opcion>7);
 		
