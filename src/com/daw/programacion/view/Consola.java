@@ -60,7 +60,7 @@ public class Consola {
 		
 	}
 	
-	public int mostarMenuResumen () {
+	public int mostrarMenuResumen () {
 		
 		Scanner sc = new Scanner (System.in);
 		int opcion = 0;
@@ -83,6 +83,42 @@ public class Consola {
 		} while (opcion<1||opcion>3);
 		
 		return opcion;
+	}
+	
+	public String introducirISBN () {
+		
+		System.out.println(" Indique el ISBN del libro: ");
+		Scanner lector = new Scanner (System.in);
+		String isbn = lector.nextLine();
+		return isbn;
+		
+	}
+	
+	public String registrarDNIUsuario () {
+		
+		System.out.println(" Indique su DNI ");
+		Scanner lector = new Scanner (System.in);
+		String dniUsuario = lector.nextLine();
+		return dniUsuario;
+		
+	}
+	
+	public String introducirTitulo () {
+		
+		System.out.println(" Indique el título del libro: ");
+		Scanner lector = new Scanner (System.in);
+		String titulo = lector.nextLine();
+		return titulo;
+		
+	}
+	
+	public String introducirAutor () {
+		
+		System.out.println(" Indique el autor del libro: ");
+		Scanner lector = new Scanner (System.in);
+		String autor = lector.nextLine();
+		return autor;
+		
 	}
 	
 }
