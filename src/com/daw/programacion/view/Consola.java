@@ -121,4 +121,15 @@ public class Consola {
 		
 	}
 	
+	public void mostrarError (String mensajeError) {
+		
+		System.out.println(mensajeError);
+		
+	}
+	
+	public void mostrarLibro (String libro) {
+		System.out.println(libro);
+		
+	}
+	
 }

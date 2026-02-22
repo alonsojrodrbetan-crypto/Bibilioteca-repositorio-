@@ -1,9 +1,12 @@
 package com.daw.programacion.controller;
 
+import com.daw.programacion.model.Biblioteca;
+import com.daw.programacion.model.Libro;
 import com.daw.programacion.view.Consola;
 
 public class GestorMenuController {
 	private Consola menu = new Consola ();
+	private Biblioteca biblioteca;
 	
 	public void mostrarMenu () {
 		
@@ -39,13 +42,26 @@ public class GestorMenuController {
 		
 		switch(opcion) {
 		case 1:
-			menu.introducirISBN ();
+			String isbn = menu.introducirISBN ();
+			if (isbn.equals("")) {
+				menu.mostrarError("Error: El dato introducido no puede ser vacío.");
+				controlarMenuBuscar();
+			}else {
+				
+				for (Libro libro : biblioteca.getLibros()) {
+					if (isbn.equals(libro.getISBN())) {
+						String info = ("Autor: "+libro.getAutor()+"\n"+libro.getISBN());
+						menu.mostrarLibro(info);
+					}	
+				}
+			}
+	
 			break;
 		case 2: 
-			menu.introducirTitulo ();
+			String titulo = menu.introducirTitulo ();
 			break;
 		case 3: 
-			menu.introducirAutor();
+			String autor = menu.introducirAutor();
 			break;
 		case 4: 
 			mostrarMenu();
@@ -53,6 +69,7 @@ public class GestorMenuController {
 		}
 		
 	}
+	
 	
 	public void controlarMenuResumenBiblioteca() {
 		
@@ -90,6 +107,13 @@ public class GestorMenuController {
 		String estado = "Prestado";
 	}
 	
-	
+	public Biblioteca getBiblioteca() {
+		return biblioteca;
+	}
+
+	public void setBiblioteca(Biblioteca biblioteca) {
+		this.biblioteca = biblioteca;
+	}
+
 	
 }
