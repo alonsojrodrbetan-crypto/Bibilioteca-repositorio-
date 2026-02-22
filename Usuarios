@@ -1,0 +1,109 @@
+package modelo;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Usuario {
+
+    private String id;
+    private String nombre;
+
+    // Libros actualmente prestados
+    private List<Prestamo> prestamosActivos;
+
+    // Historial de préstamos ya devueltos
+    private List<Prestamo> historialPrestamos;
+
+    private static final int LIMITE_PRESTAMOS = 3;
+
+    // Constructor
+    public Usuario(String id, String nombre) {
+        if (id == null || id.isBlank()) {
+            throw new IllegalArgumentException("El ID no puede estar vacío");
+        }
+        if (nombre == null || nombre.isBlank()) {
+            throw new IllegalArgumentException("El nombre no puede estar vacío");
+        }
+
+        this.id = id;
+        this.nombre = nombre;
+        this.prestamosActivos = new ArrayList<>();
+        this.historialPrestamos = new ArrayList<>();
+    }
+
+    // Getters
+    public String getId() {
+        return id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public List<Prestamo> getPrestamosActivos() {
+        return new ArrayList<>(prestamosActivos);
+    }
+
+    public List<Prestamo> getHistorialPrestamos() {
+        return new ArrayList<>(historialPrestamos);
+    }
+
+    // ==============================
+    // MÉTODOS DE GESTIÓN DE PRÉSTAMOS
+    // ==============================
+
+    public void agregarPrestamo(Prestamo prestamo) {
+        if (prestamo == null) {
+            throw new NullPointerException("El préstamo no puede ser null");
+        }
+
+        if (prestamosActivos.size() >= LIMITE_PRESTAMOS) {
+            throw new IllegalStateException("El usuario ya tiene el máximo de 3 libros prestados");
+        }
+
+        prestamosActivos.add(prestamo);
+    }
+
+    public void devolverPrestamo(Prestamo prestamo) {
+        if (!prestamosActivos.contains(prestamo)) {
+            throw new IllegalArgumentException("Este préstamo no pertenece al usuario");
+        }
+
+        prestamosActivos.remove(prestamo);
+        historialPrestamos.add(prestamo);
+    }
+
+    public boolean puedePedirPrestamo() {
+        return prestamosActivos.size() < LIMITE_PRESTAMOS;
+    }
+
+    // Verifica si el usuario tuvo un libro y aún está en periodo de bloqueo (7 días)
+    public boolean estaBloqueadoParaLibro(String isbn) {
+
+        for (Prestamo p : historialPrestamos) {
+            if (p.getLibro().getIsbn().equals(isbn)) {
+
+                LocalDate fechaDevolucion = p.getFechaDevolucion();
+                if (fechaDevolucion != null) {
+                    LocalDate fechaDisponible = fechaDevolucion.plusDays(7);
+
+                    if (LocalDate.now().isBefore(fechaDisponible)) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "id='" + id + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", prestamosActivos=" + prestamosActivos.size() +
+                '}';
+    }
+}
